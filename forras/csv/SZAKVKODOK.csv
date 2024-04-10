@@ -1,0 +1,153 @@
+ID;KOD;LEIRAS;MEGFELEL
+1;0;Megkötés nélkül;
+54215;131;Anaesthesiológia-intenzív terápia;
+54216;208;Arc-állcsont-szájsebészet;
+54217;134;Belgyógyászat;
+54218;135;Bőrgyógyászat;
+54219;136;Csecsemő-gyermekgyógyászat;
+54220;1059;Fizikális medicina;252.0
+54221;1073;Foglalkozás-orvostan (üzemorvostan);
+54222;6;Fül-orr-gégegyógyászat;
+54223;7;Gastroenterológia;
+54224;191;Geriátria;
+54225;189;Gyermek- és ifjúsági pszichiátria;
+54226;12;Gyermeksebészet;
+54227;58;Háziorvostan;
+54229;59;Honvédorvostan-katasztrófaorvostan;
+54230;16;Idegsebészet;
+54231;14;Igazságügyi orvostan;
+54232;194;Infektológia;
+54233;19;Kardiológia;
+54234;185;Megelőző orvostan és népegészségtan (általános orvos);
+54235;31;Neurológia;
+54236;1093;Nukleáris medicina;143.0
+54237;206;Ortopédia-traumatológia;
+54238;182;Orvosi laboratóriumi diagnosztika;
+54239;35;Orvosi mikrobiológia (általános orvos);
+54240;1067;Oxyológia és sürgősségi orvostan;
+54241;193;Patológia;
+54242;38;Pszichiátria;
+54243;39;Radiológia;
+54244;40;Repülőorvostan;
+54245;41;Reumatológia;
+54246;42;Sebészet;
+54247;32;Sugártherápia;
+54248;46;Szemészet;
+54249;47;Szívsebészet;
+54250;48;Szülészet-nőgyógyászat;
+54251;50;Transfuziológia;
+54252;53;Tüdőgyógyászat;
+54253;54;Urológia;
+54254;56;Addiktológia;
+54255;21;Allergológia és klinikai immunológia;
+54256;214;Andrológia;
+54257;132;Audiológia;
+54258;174;Cytopatológia;
+54259;137;Csecsemő- és gyermek fül-orr-gégegyógyászat;
+54260;1084;Csecsemő- és gyermekgyógyászati intenzív terápia;
+54261;138;Csecsemő és gyermek kardiológia;
+54262;213;Egészségbiztosítás;
+54263;139;Endokrinológia;
+54264;1;Érsebészet;
+54265;57;Fizioterápia;252.0
+54266;5;Foniátria;
+54267;175;Gyermek gasztroenterológia;
+54268;8;Gyermekneurológia;
+54269;9;Gyermeknőgyógyászat;
+54270;176;Gyermekradiológia;
+54271;177;Gyermekszemészet;
+54272;11;Gyermektüdőgyógyászat;
+54273;13;Haematológia;
+54274;15;Igazságügyi pszichiátria (igazságügyi elmeorvostan);
+54275;1090;Intenzív terápia;
+54276;17;Iskolaegészségtan és ifjúságvédelem;
+54277;60;Kézsebészet;
+54278;20;Klinikai farmakológia;
+54279;178;Klinikai genetika;
+54280;1055;Klinikai neurofiziológia;
+54281;23;Klinikai onkológia;
+54282;179;Laboratóriumi haematológia és immunológia;
+54283;27;Mellkassebészet;
+54284;180;Molekuláris genetikai diagnosztika;
+54285;181;Munkahigiéné (általános orvos);
+54286;30;Nephrológia;
+54287;29;Neonatológia;
+54288;89;Neuropatológia;
+54289;90;Neuroradiológia;
+54290;1052;Orvosi rehabilitáció (szakterület megjelölésével);252.0
+54291;1046;Orvosi rehabilitáció (pszichiátria szakterület megjelölésével);
+54292;37;Plasztikai (égési) sebészet;
+54293;62;Pszichoterápia;
+54294;43;Sportorvostan;
+54295;1081;Sugáregészségtan (általános orvos);
+54296;52;Trópusi betegségek;
+54298;10040;Kijelölt szakorvos;
+69956;1062;fogorvos;
+69957;64;Fog- és szájbetegségek (fogorvos);215.0
+69958;67;Szájsebészet (fogorvos);187.0
+69959;188;Parodontológia;
+69960;215;Konzerváló fogászat és fogpótlástan;
+69961;1001;Gyermekfogászat;
+69962;66;Fogszabályozás (fogorvos);
+69963;187;Dento alveoláris sebészet;
+69964;133;Általános orvostan;58.0
+69965;1061;általános orvos;
+71457;10041;Illetékes szakorvos;
+75385;1069;Aneszteziológia;131.0
+75386;1082;Baleseti sebészet (traumatológia);51.0
+75387;1066;Belbetegségek;134.0
+75388;1083;Bőr-, nemibetegségek és kozmetológia;135.0
+75389;225;Bőrgyógyászat (bőr-, nemibetegségek és kozmetológia);135.0
+75390;1077;Csecsemő- és gyermekbetegségek;136.0
+75391;165;Egészségügyi szervezés;49.0
+75392;2;Fertőző betegségek (higiénikus orvos);194.0
+75393;3;Fertőző betegségek (általános orvos);194.0
+75394;4;Fog- és szájbetegségek (általános orvos);215.0
+75395;1086;Fogászati anaesthesiológia;
+75396;209;Foglalkozásorvostan;1073.0
+75397;212;Fogszabályozás (általános orvos);66.0
+75398;1087;Fül-,orr-,torok- és gégebetegségek;6.0
+75399;231;Gyermekfogászat és fogszabályozás;66.0
+75400;1095;Gyermekpszichiátria és neurológia;189.0
+75401;10;Gyermekpszichiátria;189.0
+75402;1088;Húgy-és ivarszervi bántalmak (urológia);54.0
+75403;1089;Igazságügyi elmeorvostan;15.0
+75404;18;Izotópdiagnosztika;143.0
+75405;1091;Klinikai immunológia és allergológia;21.0
+75406;72;Klinikai laboratóriumi vizsgálatok (higiénikus orvos);
+75407;22;Klinikai laboratóriumi vizsgálatok (általános orvos);182.0
+75408;24;Kórbonctan-kórszövettan;193.0
+75409;1092;Kórbontani és kórszövettani vizsgálatok;193.0
+75410;69;Közegészségtan-járványtan (higiénikus orvos);185.0
+75411;25;Közegészségtan-járványtan (általános orvos);185.0
+75412;26;Közegészségügyi-járványügyi laboratóriumi vizsgálatok (általános orvos);
+75413;70;Közegészségügyi-járványügyi laboratóriumi vizsgálatok (higiénikus orvos);26.0
+75414;1096;Megelőző orvostan és népegészségtan (higiénikus orvos);185.0
+75415;28;Mozgásszervi rehabilitáció;1059.0
+75416;1099;Munkahigiéné (higiénikus orvos);181.0
+75417;143;Nukleáris medicina (izotópdiagnosztika);
+75418;217;Onkoradiológia;32.0
+75419;33;Ortopédia;
+75420;230;Orvosi laboratóriumi vizsgálatok;182.0
+75421;1097;Orvosi mikrobiológia (higiénikus orvos);35.0
+75422;252;Orvosi rehabilitáció;
+75423;1065;Orvosi rehabilitáció (geriátria);252.0
+75424;298;Orvosi rehabilitáció (kardiológia);252.0
+75425;1051;Orvosi rehabilitáció (tüdőgyógyászat);252.0
+75426;36;Oxyológia (mentőorvostan);1067.0
+75427;216;Reumatológia és fizikoterápia;41.0
+75428;254;Röntgenológia;39.0
+75429;44;Sugárbiológia-sugáregészségügy;1081.0
+75430;1098;Sugáregészségtan (higiénés orvos);1081.0
+75431;184;Sürgősségi orvostan;
+75432;45;Szájsebészet (általános orvos);187.0
+75433;1071;Szembetegségek;46.0
+75434;74;Társadalomorvostan (higiénikus orvos);49.0
+75435;68;Társadalomorvostan (fogorvos);49.0
+75436;49;Társadalomorvostan (általános orvos);
+75437;51;Traumatológia;
+75438;1094;Tüdőbetegségek és gümőkóros megbetegedések;53.0
+75439;248;Tüdősebészet;27.0
+75440;55;Üzemorvostan;1073.0
+75441;1063;higiénikus;
+86313;10042;Gyermek hemato-onkológia;
