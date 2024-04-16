@@ -1,55 +1,55 @@
 SCHEMA_PROMPT = """
 This query will run on a database whose schema is represented in this string:
 CREATE TABLE ATCKONYV(
-ATC VARCHAR2(7),
-MEGNEV VARCHAR2(250), --Magyar megnevezés
-ANGOL VARCHAR2(250), --Angol megnevezés
-HATOANYAG VARCHAR2(250) -ATC kódhoz tartozó hatóanyag neve (csak ha atc7, egyébként null)
+ATC VARCHAR2(7), -- ATC code
+MEGNEV VARCHAR2(250), --Hungarian name
+ANGOL VARCHAR2(250), --English name
+HATOANYAG VARCHAR2(250) --Substance name for ATC code
 );
 
 CREATE TABLE BNOHOZZAR(
-EUPONT_ID INTEGER, --Hivatkozás - az EÜ pont (Indikációs pont) azonosítója
-GYOGYSZ_ID INTEGER --Hivatkozás  - készítmények / eszközök azonosítója
+EUPONT_ID INTEGER, --foreign key for EUPONT
+BNO_ID_ID INTEGER --foreign key for BNOKODOK
 );
 
 CREATE TABLE BNOKODOK(
-ID INTEGER PRIMARY KEY, --Elsődleges azonosító
-KOD VARCHAR2(32), --A BNO kódja
-LEIRAS VARCHAR2(4000) --A BNO megnevezése
+ID INTEGER PRIMARY KEY,
+KOD VARCHAR2(32), --BNO code
+LEIRAS VARCHAR2(4000) --BNO description
 );
 
 CREATE TABLE EUHOZZAR(
-EUPONT_ID INTEGER, --Hivatkozás, az EÜ pont azonosítója
-BNO_ID INTEGER --Hivatkozás, a BNO kód azonosítója
+EUPONT_ID INTEGER, --foreign key for EUPONT
+GYOGYSZ_ID INTEGER --foreign key for GYOGYSZ
 );
 
 CREATE TABLE EUINDIKACIOK(
-ID INTEGER PRIMARY KEY, --Elsődleges azonosító
-EUPONT_ID INTEGER, --Melyik EÜ pontra hivatkozik
-NDX INTEGER, --Hányadik indikáció
-LEIRAS VARCHAR2(4000) --Az indikáció szövege
+ID INTEGER PRIMARY KEY,
+EUPONT_ID INTEGER, --foreign key for EUPONTOK
+NDX INTEGER, --Indication number
+LEIRAS VARCHAR2(4000) --description of the indication
 );
 
 CREATE TABLE EUJOGHOZZAR(
-EUPONT_ID INTEGER, --Az EÜ pont azonosítója
-KATEGORIA_ID INTEGER, --Milyen típusú a felírási megkötés (intézetek) azonosítója
-KATEGORIA VARCHAR2(64), --Milyen típusú a felírási megkötés (intézetek) szöveges megnevezés
-JOGOSULT VARCHAR2(64), --Felírási  jogosultság (szöveges megnevezés)
-JIDOKORLAT INTEGER, --A javaslattól kezdve hány hónapig írhatja az adott orvos a készítményt. 0 érték jelentése: a korlátozás nem értelmezhető (mert a felíró orvos végzettségénél fogva jogosult a felírásra). 999 érték jelentése: időkorlátozás nélkül írható.
-SZAKV_ID INTEGER, --A szakképesítés azonosítója, amivel írható az EÜ ponton lévő gyógyszer
-KIINT_ID INTEGER --A kijelölt intézet (vagy orvos) azonosítója
+EUPONT_ID INTEGER, --foreign key for EUPONTOK
+KATEGORIA_ID INTEGER, --identifier of the type of prescription restrictions
+KATEGORIA VARCHAR2(64), --description of the identifier of the type of prescription restrictions
+JOGOSULT VARCHAR2(64), --subscription right
+JIDOKORLAT INTEGER, --recommended number of months from the date of medicine prescription (if 0 it doesn't matter)
+SZAKV_ID INTEGER, --foreign key for SZAKVKODOK
+KIINT_ID INTEGER --foreign key for KIINTOR
 );
 
 CREATE TABLE EUPONTOK(
-ID INTEGER PRIMARY KEY, --Elsődleges azonosító
-EUTIP VARCHAR2(32), --A támogatás típusa, értékei: Gyógyszer: EÜ50, EÜ70, EÜ90, EÜ100, GYSE: Normatív, EÜ emelt, EÜ Kiemelt
-KODSZAM INTEGER, --Gyógyszer: Az indikáció kódja (per-jel előtti rész); GYSE esetében nem használatos (0)
-PERJEL VARCHAR2(32), --Gyógyszer: az indikáció kódja (per-jel utáni rész), GYSE: az ISO kód, amihez az indikáció tartozik
-IND_TIP VARCHAR2(4000) --Az indikáció típusa: 'G' Gyógyszerre, 'S' GYSE- re vonatkozik
+ID INTEGER PRIMARY KEY,
+EUTIP VARCHAR2(32), --type of aid, (values: Gyógyszer: EÜ50, EÜ70, EÜ90, EÜ100, GYSE: Normatív, EÜ emelt, EÜ Kiemelt)
+KODSZAM INTEGER, --first half of the indication code before "/"
+PERJEL VARCHAR2(32), --second half of the indication code after "/" (ISO code)
+IND_TIP VARCHAR2(4000) --indication type: 'G' if medicine, 'S' if GYSE
 );
 
 CREATE TABLE GYOGYSZ(
-ID INTEGER PRIMARY KEY, --Elsődleges azonosító
+ID INTEGER PRIMARY KEY,
 KOZHID INTEGER, --OGYÉI által kezelt, időben változatlan, egyedi termékazonosító. Ha az OGYÉI-ban még nem kapott ilyen azonosítót (centralizált törzskönyvezésnél, tápszernél fordulhat elő), akkor ideiglenesen egy 1000000 fölötti szám. (GYSE esetében nem használatos)
 OEP_DAT VARCHAR2(8), --Az érvényesség kezdetének (hatálybalépésének) dátuma ééééhhnn formában
 TIPUS VARCHAR2(1), --A készítmény / eszköz típusának kategóriája, G: gyógyszer, I: immun, T: tápszer, R: radiofarmakon, H: homeopátiás gyógyszer, A: alapanyag, F: FoNo, C: csomagolóanyag, K: készítési díj, S: gyógyászati segédeszköz
@@ -133,31 +133,31 @@ KEST_TERM INTEGER, --Kedvezményezett státuszú termék:1, egébként 0
 );
 
 CREATE TABLE KIINTOR(
-ID INTEGER PRIMARY KEY, --Elsődleges azonosító
-JAROFEKVO VARCHAR2(20), --J: járóbeteg-intézmény, F: fekvőbeteg-intézmény, M: egyéb munkahely megkötés
-MEGYE VARCHAR2(100), --Megye
-INTKOD VARCHAR2(20), --Az intézmény kódja
-INTEZET VARCHAR2(250), --Az intézmény neve
-GYFKOD VARCHAR2(20), --GYF kód
+ID INTEGER PRIMARY KEY,
+JAROFEKVO VARCHAR2(20), --J: out-patient facility, F: in-patient facility, M: other workplace constraints
+MEGYE VARCHAR2(100), --region
+INTKOD VARCHAR2(20), --institution code
+INTEZET VARCHAR2(250), --institution name
+GYFKOD VARCHAR2(20), --GYF code
 EGYSEG VARCHAR2(250)
 );
 
 CREATE TABLE NICHE(
-ID INTEGER PRIMARY KEY, --Elsődleges azonosító. A vényre a nullákkal feltöltött 9 jegyű szám kerül, pl.: 000000321
-EGYEN_ID INTEGER, --Az OGYÉI által megállapított egyenértékűségi csoport azonosító száma.
-LEIRAS VARCHAR2(250) --A receptre nyomtatandó szöveg, ami azonosítja a rendelt gyógyszert, ez az OGYÉI által megadott egyenértékűségi csoport neve, pl.: rosuvastatinum 20mg filmtabletta
+ID INTEGER PRIMARY KEY,
+EGYEN_ID INTEGER, --Equivalence group identification number
+LEIRAS VARCHAR2(250) --The text to be printed on the prescription identifying the medicine ordered is the name of the equivalence group given by the OGYÉI
 );
 
 CREATE TABLE ORVOSOK(
-PECSETKOD VARCHAR2(6), Az orvos pecsétkódja
-SZAKV_ID INTEGER A szakképesítés azonosítója
+PECSETKOD VARCHAR2(6),-- doctor's seal code
+SZAKV_ID INTEGER --Identifier of the qualification
 );
 
 CREATE TABLE SZAKVKODOK(
-ID INTEGER PRIMARY KEY, --Elsődleges azonosító
-KOD INTEGER, --A szakképesítés kódja (AEEK nyilvántartás alapján)
-LEIRAS VARCHAR2(250), --A szakképesítés megnevezése
-MEGFELEL INTEGER --Csak akkor van kitöltve, ha ma már nem megszerezhető. Ha ki van töltve, akkor a ma érvényes neki megfelelő szakképesítés kódját tartalmazza
+ID INTEGER PRIMARY KEY,
+KOD INTEGER, --qualification code
+LEIRAS VARCHAR2(250), --qualification name
+MEGFELEL INTEGER --It is only filled in if it is no longer available today. If filled, it contains the code of the corresponding qualification valid today
 );
 
 --BNOKODOK.ID can be joined with BNOHOZZAR.BNO_ID
