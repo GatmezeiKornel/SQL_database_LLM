@@ -1,4 +1,4 @@
-schema = """
+SCHEMA_PROMPT = """
 This query will run on a database whose schema is represented in this string:
 CREATE TABLE ATCKONYV(
 ATC VARCHAR2(7),
