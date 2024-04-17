@@ -129,7 +129,7 @@ KERESZTJELZES VARCHAR2(32), --OGYÉI hatáserősség (méregosztály) jelzése, 
 REGI_NEV DATE, --Az érvényesség vége, ha még nincs lezárva az érvényessége, akkor 2099.12.31 (Access, DBF fájlokban nem jelenik meg, mert felesleges)
 PRAS_TERMEK INTEGER, --PReferált ÁrSávba tartozó termék egy 3 jegyű szám: első jegy a normatív, második az EÜ emelt, harmadik az EÜ kiemelt jogcímre vonatkozik. Ha 1 a megfelelő jegy, akkor a termék preferált ársávban van az adott jogcímen, ha 2, akkor kívül esik, ha 3, akkor nem pras csoport vagy nem értelmezhető.
 NICHE_ID INTEGER, --A NICHE tábla rekordjára mutat. A hatóanyagalapú felírás melyik eleméhez tartozik az adott termék. Ha nincs besorolva: null
-KEST_TERM INTEGER, --Kedvezményezett státuszú termék:1, egébként 0
+KEST_TERM INTEGER, --Kedvezményezett státuszú termék:1, egyébként 0
 );
 
 CREATE TABLE KIINTOR(

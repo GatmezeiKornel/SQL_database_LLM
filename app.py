@@ -59,8 +59,7 @@ def app_main():
 
             sql_gen_messages = [
                 {"role": "system", "content" : sql_system_message.format(system_prompt=SQL_SYSTEM_PROMPT, 
-                                                                    table_info=SCHEMA_PROMPT, 
-                                                                    few_shot_examples=FEW_SHOT_EXAMPLES_SQL)},
+                                                                    table_info=SCHEMA_PROMPT)},
                 {"role": "user", "content": question_message.format(question=QUERY)}
                 ]
 
