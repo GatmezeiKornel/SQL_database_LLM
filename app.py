@@ -1,25 +1,41 @@
 import tiktoken
-import openai
+import os
+from openai import AzureOpenAI
 import streamlit as st
+from dotenv import load_dotenv
 from utils.streamlit_functions import *
 from utils.prompts.prompt import *
 from utils.prompts.Schema_Prompt_v1 import *
+from utils.postgres_functions import *
+
+load_dotenv()
 
 encoding = tiktoken.get_encoding("cl100k_base")
-MODEL = 'gpt-4-turbo-2024-04-09'
+# MODEL = 'gpt-4-turbo-2024-04-09'
+MODEL = str(os.environ['model_name'])
 MODEL_INPUT_TOKEN_SUMM_LIMIT = 125000
 MODEL_MAX_TOKEN_LIMIT = 128000
-MAX_TOKENS = MODEL_MAX_TOKEN_LIMIT-MODEL_INPUT_TOKEN_SUMM_LIMIT
+# MAX_TOKENS = MODEL_MAX_TOKEN_LIMIT-MODEL_INPUT_TOKEN_SUMM_LIMIT
+MAX_TOKENS = 1024
 MAX_CONTEXT_QUESTIONS = 120
-TEMPERATURE = 0
+TEMPERATURE = 0.0
+
+db_connection = connect_to_db(str(os.environ['db_host']), str(os.environ['db_name']), str(os.environ['db_user']), str(os.environ['db_password']))
+
+client = AzureOpenAI(
+    api_key = str(os.environ['azure_api_key']),
+    api_version = str(os.environ['azure_api_version']),
+    azure_endpoint = str(os.environ['azure_api_endpoint'])
+)
 
 def generate_response(messages, MODEL, TEMPERATURE, MAX_TOKENS):
-    completion = openai.ChatCompletion.create(
-        model=MODEL, 
-        messages=messages, 
-        temperature=TEMPERATURE, 
-        max_tokens=MAX_TOKENS)
-    return completion.choices[0]['message']['content']
+    completion = client.chat.completions.create(
+        model= MODEL,
+        messages=messages,
+        temperature=TEMPERATURE,
+        max_tokens=MAX_TOKENS,
+        logprobs=True)
+    return completion.choices[0].message.content
 
 
 
