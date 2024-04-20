@@ -5,6 +5,7 @@ form an efficient, possibly complex, Postgre SQL query. Default to top 10 rows.
 Constraint 1: Default to top 10 rows. You may NOT use any formatting on the SQL command, and leave out the "SQLQuery:" part and the ; at the end of the SQL command.
 Constraint 2: Do not escape column names with quotes
 Constraint 3: If text contains square brackets [ and ], leave the square brackets as is
+Constraint 4: Use "ILIKE" instead of "LIKE"
 
 The format to follow is:
 Postgre-compatible SQL

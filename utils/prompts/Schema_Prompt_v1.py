@@ -50,86 +50,86 @@ IND_TIP VARCHAR(4000) --indication type: 'G' if medicine, 'S' if GYSE
 
 CREATE TABLE GYOGYSZ(
 ID INTEGER PRIMARY KEY,
-KOZHID INTEGER, --OGYÉI által kezelt, időben változatlan, egyedi termékazonosító. Ha az OGYÉI-ban még nem kapott ilyen azonosítót (centralizált törzskönyvezésnél, tápszernél fordulhat elő), akkor ideiglenesen egy 1000000 fölötti szám. (GYSE esetében nem használatos)
-OEP_DAT VARCHAR(8), --Az érvényesség kezdetének (hatálybalépésének) dátuma ééééhhnn formában
-TIPUS VARCHAR(1), --A készítmény / eszköz típusának kategóriája, G: gyógyszer, I: immun, T: tápszer, R: radiofarmakon, H: homeopátiás gyógyszer, A: alapanyag, F: FoNo, C: csomagolóanyag, K: készítési díj, S: gyógyászati segédeszköz
-OEP_TTT VARCHAR(9), --A készítmény / eszköz azonosítására a NEAK (Nemzeti Egészségbiztosítási Alapkezelő) által használt kód (TTT kód)
-OEP_EAN VARCHAR(13), --A készítmény EAN (European Article Numbering) kódja (GYSE esetében nem használatos)
-OEP_TK VARCHAR(64), --A készítmény OGYÉI által kiadott törzskönyvi száma (GYSE esetében nem használatos)
-OEP_NEV VARCHAR(255), --A készítmény / eszköz neve
-OEP_KSZ VARCHAR(7), --A készítmény kiszerelése / eszköz mennyiségi egysége
-OEP_ATC VARCHAR(128), --Az NEAK által meghatározott ATC kód (GYSE esetében nem használatos)
-HATOANYAG VARCHAR(32), --A készítmény fő hatóanyagának neve (GYSE esetében nem használatos)
-ADAGMOD VARCHAR(32), --A készítmény adagolásmódjának azonosítója (GYSE esetében nem használatos)
-ID_GYFORMA INTEGER, --A gyógyszerformához rendelt ID
-GYFORMA VARCHAR(100), --A teljes gyógyszerforma szöveges leírása (GYSE esetében nem használatos)
-RENDELHET VARCHAR(3), --A készítmény rendelhetőségének azonosítója: VN: Orvosi rendelvény nélkül is kiadható gyógyszerkésztímény, V: Kizárólag orvosi rendelvényre kiadható gyógyszerkészítmény, J: Szakorvosi/kórházi diagnózist követően járóbeteg-ellátásban alkalmazható gyógyszerkészítmény, SZ vagy Sz: Szakorvosi/kórházi diagnózist követően folyamatos szakorvosi ellenőrzés mellett alkalmazható gyógyszerkészítmény, I: Rendelőintézeti járóbeteg-szakellátást vagy fekvőbeteg-szakellátást nyújtó szolgáltatók által biztosított körülmények között alkalmazható gyógyszerkészítmény (GYSE esetében nem használatos)
-EGYENID INTEGER, --Az OGYÉI által megállapított egyenértékűségi csoport azonosító száma. Ha nem tartozik egyenértékűségi csoportba, akkor értéke: -1 (GYSE esetében nem használatos)
-POTENCIA VARCHAR(64), --Potencia (homeopátiás szerek) (GYSE esetében nem használatos)
-OHATO_MENNY INTEGER, --Összes hatóanyag tartalom (GYSE esetében nem használatos)
-HATO_MENNY INTEGER, --Egy kiszerelési egységben levő hatóanyag tartalom (GYSE esetében nem használatos)
-HATO_EGYS VARCHAR(50), --OHATO_MENNY, HATO_MENNY mezők mennyiségi egysége (pl. mg) (GYSE esetében nem használatos)
-KISZ_MENNY INTEGER, --A termékben levő kiszerelési egységek száma (GYSE esetében nem használatos)
-KISZ_EGYS VARCHAR(50), --A termékben levő kiszerelési egység egységneve (pl. db) (GYSE esetében nem használatos)
-DDD_MENNY INTEGER, --DDD (átlagos napi dózis) értéke (GYSE esetében nem használatos)
-DDD_EGYS VARCHAR(50), --DDD_MENNY mennyiségi egysége (pl. mg) (GYSE esetében nem használatos)
-DDD_FAKTOR INTEGER, --HATO_EGYS és DDD_EGYS közti átváltó szám (pl. g és mg esetén 1000) (GYSE esetében nem használatos)
-DOT INTEGER, --A kiszerelés hány napra elegendő a WHO szerint  (GYSE esetében nem használatos)
-ADAG_MENNY INTEGER, --A kiszerelés hány ADAG_EGYS-nek megfelelő mennyiséget tartlamaz
-ADAG_EGYS VARCHAR(50), --Az orvos által szokásosan felírt mennyiség egysége, pl.: tabletta, csepp, adagolókanál, ml, borsónyi (krémeknél), ..., stb.
-OEP_TAR INTEGER, --Termelői ár (GYSE esetében nem használatos)
-OEP_NKAR INTEGER, --Nagykereskedelmi ár (GYSE esetében nem használatos)
-OEP_FAN INTEGER, --Fogyasztói ár nettó
-OEP_FAB INTEGER, --Fogyasztói ár bruttó
-NTK INTEGER, --Napi terápiás költség (GYSE esetében nem használatos)
-OEP_ITM VARCHAR(3), --A termék régi támogatásjelzése: 0NT: nem támogatott XXX: támogatás % amennyiben nominálisan támogatott, pl. 025, FIX: fixcsoport alapú támogatás, TFX: terápiás fixcsoport alapú támogatás, KOM: kombinációs felülvizsgálat alapú támogatás, EMT: egyedi méltányosságban támogatott.
-OEP_JC1 VARCHAR(1), --I: ha a készítmény / eszköz honvédelmi jogosultsággal felírható
-OEP_JC2 VARCHAR(1), --I: ha az eszköz közgyógy ellátott betegeknek felírható (gyógyszer és gyse termékek esetén)
-OEP_JC3 VARCHAR(1), --I: ha a készítmény / eszköz üzemi baleset esetén felírható
-OEP_JC4 VARCHAR(1), --I: ha a készítmény / eszköz EÜ kiemelt jogosultsággal felírható
-OEP_JC5 VARCHAR(1), --I: ha a készítmény / eszköz EÜ emelt jogosultsággal felírható
-KGYKERET INTEGER, --1: közgyógy keret meghatározásakor figyelembe vehető, 2: közgyógy keret meghatározásakor nem vehető figyelembe
-EGYSEGAR INTEGER, --HATO_EGYS-nyi hatóanyag ára (GYSE esetében nem használatos)
-NORM_TIP VARCHAR(16), --Támogatásra vonatkozó megjelölés, NT: nem támogatott, C<szám>: a külökónkeretes támogatás jogcímkódja. A normatív támogatás technikái: NOMIN: nominálisan (százalékosan) támogatott, HFIX: hatóanyagfix technikával támogatott, TFX: terápiás fix technikával támogatott,FIX: GYSE fix technikával támogatott,KOMBI: a kombinációs felülvizsgálat állapította meg a támogatásátGYSE esetében lehet NEMKIV, ami azt jelenti, hogy bár van normatív támogatása, nem váltható ki, csak közgyógyra.
-NORM_SZAZ INTEGER, --Támogatás mértéke %-ban normatív támogatás esetén (pl. 0, 25, 55, 80) 
-NORM_FIXID INTEGER, --Normatív fixcsoport azonosítója (GYSE esetében nem használatos)
-NORM_REFNTK INTEGER, --Normatív fixcsoport referencia NTK-ja (GYSE esetében nem használatos)
-OEP_INN INTEGER, --Normatív támogatás nettó
-OEP_INB INTEGER, --Normatív támogatás bruttó
-NORM_TERDIJ INTEGER, --A beteg által fizetendő térítési díj (normatív támogatás esetén)
-NTK_TD INTEGER, --A beteg által fizetendő térítési díj alapján kiszámított napi terápiás költség (normatív támogatás esetén) (GYSE esetében nem használatos)
-EUEM_TIP VARCHAR(16), --Normatív jogcímen a kihordási idő (csak GYSE esetében  használatos) Normatív jogcímen a felírható mennyiség (csak GYSE esetében  használatos). Az EÜ emelt támogatás technikája: (null) : nem támogatott NOMIN: nominálisan (százalékosan) támogatott, HFIX: hatóanyagfix technikával támogatott, TFX: terápiás fix technikával támogatott, KOMBI: a kombinációs felülvizsgálat állapította meg a támogatását, BIOL: biológiai készítményekre vonatkozó szabályok szerint támogatott, LFX: kis molekulasúlyú heparinokra vonatkozó szabályok szerint támogatott.
-EUEM_SZAZ INTEGER, --Támogatás mértéke %-ban EÜ emelt támogatás esetén (pl. 50, 70, 90)
-EUEM_FIXID INTEGER, --EÜ emelt fixcsoport azonosítója (GYSE esetében nem használatos)
-EUEM_REFNTK INTEGER, --EÜ emelt fixcsoport referencia NTK-ja (GYSE esetében nem használatos)
-OEP_EUN INTEGER, --EÜ emelt támogatás nettó
-OEP_EUB INTEGER, --EÜ emelt támogatás bruttó
-EUEM_TERDIJ INTEGER, --A beteg által fizetendő térítési díj (EÜ emelt támogatás esetén)
-NTK_EETD INTEGER, --A beteg által fizetendő térítési díj alapján kiszámított napi terápiás költség (EÜ emelt támogatás esetén) (GYSE esetében nem használatos)
-EUEM_PONTOK VARCHAR(128), --EÜ pontok, amire a termék EÜ emelt támogatással írható (GYSE esetében nem használatos)
-EUKIEM_TIP VARCHAR(16), --Az EÜ kiemelt támogatás technikája: (null) : nem támogatott, NOMIN: nominálisan (százalékosan) támogatott, HFIX: hatóanyagfix technikával támogatott, TFX: terápiás fix technikával támogatott, KOMBI: a kombinációs felülvizsgálat állapította meg a támogatását, BIOL: biológiai készítményekre vonatkozó szabályok szerint támogatott, LFX: kis molekulasúlyú heparinokra vonatkozó szabályok szerint támogatott.
-EUKIEM_SZAZ INTEGER, --Támogatás mértéke %-ban EÜ kiemelt támogatás esetén (pl. 100)
-EUKIEM_FIXID INTEGER, --EÜ kiemelt fixcsoport azonosítója (GYSE esetében nem használatos)
-EUKIEM_REFNTK INTEGER, --EÜ kiemelt fixcsoport referencia NTK-ja (GYSE esetében nem használatos)
-OEP_EU100N INTEGER, --EÜ kiemelt támogatás nettó
-OEP_EU100B INTEGER, --EÜ kiemelt támogatás bruttó
-EUKIEM_TERDIJ INTEGER, --A beteg által fizetendő térítési díj (EÜ kiemelt támogatás esetén)
-NTK_EKTD INTEGER, --A beteg által fizetendő térítési díj alapján kiszámított napi terápiás költség (EÜ kiemelt támogatás esetén) (GYSE esetében nem használatos)
-EUKIEM_PONTOK VARCHAR(128), --EÜ pontok, amire a termék EÜ kiemelt támogatással írható (GYSE esetében nem használatos)
-FORGALOMBAN INTEGER, --0 = Nincs forgalomban, 1 = Forgalomban van. Besorolás a következő információk alapján: OWL szerint forgalomban (bejelentette OWL-ben és beküldte az első nagyker számla másolatát), P@NKA Nagykereskedői Beszerzési/raktárkészlet adatokban szerepel (az adott PUPHA érvényességhez képest 2 hónappal korábbi adat alapján), P@NKA Nagykereskedői Kiszállítási adatokban szerepel (az adott PUPHA érvényességhez képest 2 hónappal korábbi adat alapján), BÉVER Forgalmi adatokban szerepel (az adott PUPHA érvényességhez képest 2 hónappal korábbi adat alapján), Ideiglenes ellátási hiányt jelentett a forgalmazó
-BESOROLAS INTEGER, --A költséghatékonysági kategória kódja jogcímenként (ld. megjegyzés) (GYSE esetében nem használatos)
-PATIKA VARCHAR(1), --K = patikán kívül is kapható gyógyszer, I = patikában is kapható gyse, ami nem írható eReceptre, E = patikában is kapható gyse, ami eReceptre is írható, (null) = ha gyógyszer: patikán kívül nem kapható, ha gyse: patikában nem kapható és így eReceptre sem 
-FORGENGT VARCHAR(128), --Gyógyszer: Forgalomba hozatali engedély jogosultja / GYSE: Gyártó
-FORGENGT_ID INTEGER, --Gyógyszer: Forgalomba hozatali engedély jogosultjának azonosítója / GYSE: Gyártó azonosítója
-FORGALMAZ VARCHAR(128), --Gyógyszer / GYSE: Forgalmazó
-FORGALMAZ_ID INTEGER, --Gyógyszer / GYSE: Forgalmazó azonosítója
-BRANDNEV VARCHAR(128), --A gyógyszer márkaneve (GYSE esetében nem használatos)
-BRAND_ID INTEGER, --A gyógyszer márkanevének azonosítója (GYSE esetében nem használatos)
-KERESZTJELZES VARCHAR(32), --OGYÉI hatáserősség (méregosztály) jelzése, pl. +,  ++ (GYSE esetében nem használatos)
-REGI_NEV VARCHAR(255), --Az érvényesség vége, ha még nincs lezárva az érvényessége, akkor 2099.12.31 (Access, DBF fájlokban nem jelenik meg, mert felesleges)
-PRAS_TERMEK INTEGER, --PReferált ÁrSávba tartozó termék egy 3 jegyű szám: első jegy a normatív, második az EÜ emelt, harmadik az EÜ kiemelt jogcímre vonatkozik. Ha 1 a megfelelő jegy, akkor a termék preferált ársávban van az adott jogcímen, ha 2, akkor kívül esik, ha 3, akkor nem pras csoport vagy nem értelmezhető.
-NICHE_ID INTEGER, --A NICHE tábla rekordjára mutat. A hatóanyagalapú felírás melyik eleméhez tartozik az adott termék. Ha nincs besorolva: null
-KEST_TERM INTEGER, --Kedvezményezett státuszú termék:1, egyébként 0
+KOZHID INTEGER, --Unique product identifier managed by the OGYÉI (number above 1000000 if an identifier is not assigned yet)
+OEP_DAT VARCHAR(8), --Start (effective) date of validity in yyyymmdd form
+TIPUS VARCHAR(1), --Category of type of product (G: medicine, I: immune, T: nutritional product, R: radiopharmaceutical, H: homeopathic medicine, A: raw material, F: FoNo, C: packaging material, K: manufacturing fee, S: medical device)
+OEP_TTT VARCHAR(9), --Code used by NEAK (National Health Insurance Fund Management) to identify the product (TTT code)
+OEP_EAN VARCHAR(32), --EAN (European Article Numbering) code of product
+OEP_TK VARCHAR(64), --Registration number of the product issued by the OGYÉI
+OEP_NEV VARCHAR(255), --Name of product
+OEP_KSZ VARCHAR(255), --Packaging of product/unit of measure
+OEP_ATC VARCHAR(7), --ATC code managed by NEAK
+HATOANYAG VARCHAR(128), --Name of the main active substance of the product
+ADAGMOD VARCHAR(32), --Dosage method identifier
+ID_GYFORMA INTEGER, --ID assigned to the pharmaceutical form
+GYFORMA VARCHAR(100), --Text description of the full pharmaceutical form
+RENDELHET VARCHAR(3), --Identifier for the prescription of the product (VN: Medicinal product available without a prescription, V: Medicinal product available only on prescription, J: Medicinal product for outpatient use following a specialist/hospital diagnosis, S or M: I: Medicinal product for use under conditions provided by providers of outpatient specialised outpatient or inpatient specialised inpatient care)
+EGYENID INTEGER, --Equivalence group identification number established by the OGYÉI. If it is not in an equivalence group, it is -1
+POTENCIA VARCHAR(64), --Potency (homeopathic products)
+OHATO_MENNY INTEGER, --Total active substance content
+HATO_MENNY INTEGER, --Active substance content per unit pack
+HATO_EGYS VARCHAR(50), --OHATO_MENNY, HATO_MENNY fields unit of quantity (e.g. mg)
+KISZ_MENNY INTEGER, --Number of packing units in the product
+KISZ_EGYS VARCHAR(50), --Unit name of the unit of packaging of the product (e.g. pcs)
+DDD_MENNY INTEGER, --DDD (average daily dose)
+DDD_EGYS VARCHAR(50), --DDD_MENNY unit of quantity (e.g. mg)
+DDD_FAKTOR INTEGER, --Conversion number between HATO_EGYS and DDD_EGYS (e.g. 1000 for g and mg)
+DOT INTEGER, --How many days' supply according to WHO
+ADAG_MENNY INTEGER, --Quantities of ADAG_EGYS are contained in the package
+ADAG_EGYS VARCHAR(50), --Unit of a quantity usually prescribed by the doctor, e.g. tablet, drop, scoop, ml, pea-size (for creams), ..., etc.
+OEP_TAR INTEGER, --Production price
+OEP_NKAR INTEGER, --Wholesale price
+OEP_FAN INTEGER, --Net consumer price
+OEP_FAB INTEGER, --Gross consumer price
+NTK INTEGER, --Daily therapy costs
+OEP_ITM VARCHAR(3), --Old aid designation of the product: 0NT: not subsidised XXX: aid % if nominally subsidised, e.g. 025, FIX: fixed group based aid, TFX: therapeutic fixed group based aid, KOM: combination review based aid, EMT: individual fairness based aid.
+OEP_JC1 VARCHAR(1), --I: if the preparation can be prescribed with a national defence authorisation
+OEP_JC2 VARCHAR(1), --I: if the product is ready to be prescribed to patients receiving medical treatment
+OEP_JC3 VARCHAR(1), --I: if the product can be prescribed in the event of an industrial accident
+OEP_JC4 VARCHAR(1), --I: if the product can be prescribed with EÜ privileges
+OEP_JC5 VARCHAR(1), --I: if the product EÜ can be prescribed with increased privileges
+KGYKERET INTEGER, --1: may be taken into account for the determination of the medical allowance, 2: may not be taken into account for the determination of the medical allowance
+EGYSEGAR INTEGER, --Price per active substance HATO_EGYS
+NORM_TIP VARCHAR(16), --Indication of aid, NT: non-assisted, C<number>: article code of the external aid. Techniques of normative support: NOMIN: nominally (percentage) supported, HFIX: supported by a fixed technique for active substances, TFX: supported by a fixed therapeutic technique,FIX: supported by a fixed technique for GYSE,KOMBI: the combination review has established the support for GYSE can be NON-NOMIN, which means that although there is normative support, it cannot be replaced, only by a public medicine.
+NORM_SZAZ INTEGER, --Aid amount in % for normative aid (e.g. 0, 25, 55, 80)
+NORM_FIXID INTEGER, --Normative fixed group identifier
+NORM_REFNTK INTEGER, --Reference NFC of normative fixed group
+OEP_INN INTEGER, --Normative support net
+OEP_INB INTEGER, --Normative support gross
+NORM_TERDIJ INTEGER, --Fee to be paid by the patient
+NTK_TD INTEGER, --A Daily therapy cost calculated on the basis of the fee to be paid by the patient (in case of normative support)
+EUEM_TIP VARCHAR(16), --Normative title is the delivery time (only used for GYSE) Normative title is the quantity that can be written (only used for GYSE). EÜ uplift technique: (null) : not subsidised NOMIN: nominally (percentage) subsidised, HFIX: subsidised by the active substance fixed technique, TFX: subsidised by the therapeutic fixed technique, KOMBI: subsidy established by the Combination Review, BIOL: subsidised under the rules for biological products, LFX: subsidised under the rules for small molecule heparins.
+EUEM_SZAZ INTEGER, --Aid amount in % in case of EÜ increased aid (e.g. 50, 70, 90)
+EUEM_FIXID INTEGER, --EÜ raised fixed group identifier
+EUEM_REFNTK INTEGER, --Reference NFCs for the EÜ elevated fixed group
+OEP_EUN INTEGER, --EÜ increased aid net 
+OEP_EUB INTEGER, --EÜ increased aid gross
+EUEM_TERDIJ INTEGER, --Fee to be paid by the patient (in the case of EÜ increased aid)
+NTK_EETD INTEGER, --Daily therapy cost calculated on the basis of the fee payable by the patient (in the case of EÜ increased aid)
+EUEM_PONTOK VARCHAR(128), --EÜ points to which the product can be attributed EC increased aid
+EUKIEM_TIP VARCHAR(16), --EÜ priority support technique: (null) : not supported, NOMIN: nominally (percentage) supported, HFIX: supported by the active substance fix technique, TFX: supported by the therapeutic fix technique, KOMBI: supported by the combination review, BIOL: supported under the rules for biologicals, LFX: supported under the rules for small molecule heparins.
+EUKIEM_SZAZ INTEGER, --Rate of EÜ priority aid % for EÜ priority aid (e.g. 100)
+EUKIEM_FIXID INTEGER, --EÜ priority group identifier
+EUKIEM_REFNTK INTEGER, --EÜ priority fixed group reference NFCs
+OEP_EU100N INTEGER, --EÜ priority aid net
+OEP_EU100B INTEGER, --EÜ priority aid gross
+EUKIEM_TERDIJ INTEGER, --Fee to be paid by the patient (in case of EÜ priority support)
+NTK_EKTD INTEGER, --Daily therapy costs calculated on the basis of the fee to be paid by the patient (in the case of EÜ priority support)
+EUKIEM_PONTOK VARCHAR(128), --EÜ points for which the product is eligible for EÜ priority support
+FORGALOMBAN INTEGER, --0 = Not in circulation, 1 = In circulation. Classification based on the following information: In circulation according to OWL (declared in OWL and submitted a copy of the first wholesale invoice), listed in P@NKA Wholesale Purchasing/Stock data (based on data 2 months prior to the current PUPHA validity), Included in P@NKA Wholesaler Delivery data (based on data 2 months earlier than the current PUPHA validity), Included in BÉVER Turnover data (based on data 2 months earlier than the current PUPHA validity), Temporary shortage of supply reported by distributor
+BESOROLAS INTEGER, --Cost-effectiveness category code by title
+PATIKA VARCHAR(1), --K = drug available over-the-counter, I = drug available over-the-counter but not on ePrescription, E = drug available over-the-counter but on ePrescription, (null) = if drug: not available over-the-counter, if drug: not available over-the-counter and therefore not on ePrescription
+FORGENGT VARCHAR(128), --Medicinal product: marketing authorisation holder / GYSE: manufacturer
+FORGENGT_ID INTEGER, --Medicinal product: FMedicine: Marketing Authorisation Holder Identifier / GYSE: Manufacturer Identifier
+FORGALMAZ VARCHAR(128), --Medical Distributor
+FORGALMAZ_ID INTEGER, --Medical Distributor identifier
+BRANDNEV VARCHAR(128), --Brand name of medicine
+BRAND_ID INTEGER, --Brand name identifier of the medicine
+KERESZTJELZES VARCHAR(32), --Indication of the potency (poison class), e.g. +, ++
+REGI_NEV VARCHAR(255), --The expiry date, if not yet closed, is 31.12.2099
+PRAS_TERMEK INTEGER, --The product in the PReferred Price Range is a 3-digit number: the first digit refers to the normative, the second to the EÜ increased and the third to the EÜ priority. If 1 is the corresponding digit, the product is in the preferred price band for that title, if 2, it is outside, if 3, it is not in the pras group or cannot be interpreted.
+NICHE_ID INTEGER, --Foreign key for NICHE. (To which element of the active substance prescription the product belongs. If not classified: null)
+KEST_TERM INTEGER, --Beneficiary status product:1, otherwise 0
 );
 
 CREATE TABLE KIINTOR(
@@ -170,5 +170,4 @@ MEGFELEL INTEGER --It is only filled in if it is no longer available today. If f
 --NICHE.ID can be joined with GYOGYSZ.NICHE_ID
 --SZAKVKODOK.ID can be joined with EUJOGHOZZAR.SZAKV_ID
 --SZAKVKODOK.ID can be joined with ORVOSOK.SZAKV_ID
-
 """
