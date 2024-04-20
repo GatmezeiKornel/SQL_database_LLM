@@ -20,11 +20,11 @@ MAX_TOKENS = 1024
 MAX_CONTEXT_QUESTIONS = 120
 TEMPERATURE = 0.0
 
-db_connection = connect_to_db(str(os.environ['db_host']), str(os.environ['db_name']), str(os.environ['db_user']), str(os.environ['db_password']))
+db_connection = connect_to_db(str(os.environ['db_host']), "pupha", str(os.environ['db_user']), str(os.environ['db_password']))
 
 client = AzureOpenAI(
     api_key = str(os.environ['azure_api_key']),
-    api_version = str(os.environ['azure_api_version']),
+    api_version = "2024-03-01-preview",
     azure_endpoint = str(os.environ['azure_api_endpoint'])
 )
 

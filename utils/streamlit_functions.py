@@ -4,7 +4,7 @@ import streamlit as st
 
 def password_entered():
     """Checks whether a password entered by the user is correct."""
-    if hmac.compare_digest(st.session_state["password"], os.environ["streamlit_password"]):
+    if hmac.compare_digest(st.session_state["password"], os.environ["db_password"]):
         st.session_state["password_correct"] = True
         # del st.session_state["password"]  # Don't store the password.
     else:
