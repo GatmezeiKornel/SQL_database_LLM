@@ -20,8 +20,6 @@ MAX_TOKENS = 1024
 MAX_CONTEXT_QUESTIONS = 120
 TEMPERATURE = 0.0
 
-db_connection = connect_to_db(str(os.environ['db_host']), "pupha", str(os.environ['db_user']), str(os.environ['db_password']))
-
 client = AzureOpenAI(
     api_key = str(os.environ['azure_api_key']),
     api_version = "2024-03-01-preview",
@@ -81,18 +79,22 @@ def app_main():
 
             sql_response = generate_response(sql_gen_messages, MODEL, TEMPERATURE, MAX_TOKENS)
 
+            db_connection = connect_to_db(str(os.environ['db_host']), str('pupha'), str(os.environ['db_user']), str(os.environ['db_password']))
+            query_answer = read_db(sql_response, db_connection)
+            close_connection(db_connection) 
+
             messages = [
                 {"role": "system", "content" : text_system_message.format(system_prompt=DB_TO_TEXT_SYSTEM_PROMPT, 
-                                                                    sql_data=sql_response)},
+                                                                    sql_data=query_answer.drop_duplicates())},
                 *st.session_state.messages,
                 {"role": "user", "content": question_message.format(question=QUERY)}
             ]
 
-            text_response = generate_response(sql_gen_messages, MODEL, TEMPERATURE, MAX_TOKENS)
+            text_response = generate_response(messages, MODEL, TEMPERATURE, MAX_TOKENS)
 
             current_token_count = len(encoding.encode(' '.join([i['content'] for i in messages])))
 
-            while (len(messages)-3 > MAX_CONTEXT_QUESTIONS[MODEL] * 2) or (current_token_count >= MODEL_INPUT_TOKEN_SUMM_LIMIT[MODEL]):
+            while (len(messages)-3 > MAX_CONTEXT_QUESTIONS * 2) or (current_token_count >= MODEL_INPUT_TOKEN_SUMM_LIMIT):
 
                 messages.pop(3)            
                 current_token_count = len(encoding.encode(' '.join([i['content'] for i in messages])))
