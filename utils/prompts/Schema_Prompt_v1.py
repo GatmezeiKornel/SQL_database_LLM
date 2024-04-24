@@ -2,8 +2,8 @@ SCHEMA_PROMPT = """
 This query will run on a database whose schema is represented in this string:
 CREATE TABLE ATCKONYV(
 ATC VARCHAR(7), -- ATC code
-MEGNEV VARCHAR(250), --Hungarian name
-ANGOL VARCHAR(250), --English name
+MEGNEV VARCHAR(250), --Hungarian name of ATC code
+ANGOL VARCHAR(250), --English name of ATC code
 HATOANYAG VARCHAR(250) --Substance name for ATC code
 );
 
@@ -142,11 +142,6 @@ GYFKOD VARCHAR(20), --GYF code
 EGYSEG VARCHAR(250)
 );
 
-CREATE TABLE NICHE(
-ID INTEGER PRIMARY KEY,
-EGYEN_ID INTEGER, --Equivalence group identification number
-LEIRAS VARCHAR(250) --The text to be printed on the prescription identifying the medicine ordered is the name of the equivalence group given by the OGYÉI
-);
 
 CREATE TABLE ORVOSOK(
 PECSETKOD VARCHAR(6),-- doctor's seal code
@@ -171,3 +166,8 @@ MEGFELEL INTEGER --It is only filled in if it is no longer available today. If f
 --SZAKVKODOK.ID can be joined with EUJOGHOZZAR.SZAKV_ID
 --SZAKVKODOK.ID can be joined with ORVOSOK.SZAKV_ID
 """
+# CREATE TABLE NICHE(
+# ID INTEGER PRIMARY KEY,
+# EGYEN_ID INTEGER, --Equivalence group identification number
+# LEIRAS VARCHAR(250) --The text to be printed on the prescription identifying the medicine ordered is the name of the equivalence group given by the OGYÉI
+# );
