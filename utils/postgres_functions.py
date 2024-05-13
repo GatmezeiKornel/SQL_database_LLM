@@ -27,13 +27,10 @@ def create_table(table: str, attr: str, conn):
     - conn: psycopg2 connection variable
     """
     cursor = conn.cursor()
-    # cursor.execute(f"DROP TABLE IF EXISTS {table};")
-    # print("Finished dropping table (if existed)")
-
     cursor.execute(f"CREATE TABLE {table} {attr};")
     print("Finished creating table")
 
-def insert_item(table: str, attr: str, row: str, conn):
+def insert_item(table: str, attr: str, row: list, conn):
     """Inserting to a postgreSQL table using psycopg2 connection variable
     
     Parameters:

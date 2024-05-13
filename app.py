@@ -11,11 +11,9 @@ from utils.postgres_functions import *
 load_dotenv()
 
 encoding = tiktoken.get_encoding("cl100k_base")
-# MODEL = 'gpt-4-turbo-2024-04-09'
 MODEL = str(os.environ['model_name'])
 MODEL_INPUT_TOKEN_SUMM_LIMIT = 125000
 MODEL_MAX_TOKEN_LIMIT = 128000
-# MAX_TOKENS = MODEL_MAX_TOKEN_LIMIT-MODEL_INPUT_TOKEN_SUMM_LIMIT
 MAX_TOKENS = 1024
 MAX_CONTEXT_QUESTIONS = 120
 TEMPERATURE = 0.0
