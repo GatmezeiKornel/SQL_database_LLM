@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 altair==5.3.0
 annotated-types==0.6.0
 anyio==4.3.0
@@ -78,3 +79,33 @@ tzdata==2024.1
 urllib3==2.2.1
 watchdog==4.0.0
 wcwidth==0.2.13
+=======
+# Core dependencies
+streamlit>=1.28.0
+pandas>=2.0.0
+numpy>=1.24.0
+python-dotenv>=1.0.0
+
+# Database and SQL
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.0
+mysql-connector-python>=8.0.0
+
+# AI and NLP
+openai>=1.0.0
+defog>=2.6.0
+langchain>=0.0.300
+
+# Evaluation and Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Utilities
+tqdm>=4.65.0
+python-dateutil>=2.8.2
+pytz>=2023.3
+
+# MDB Processing
+pyodbc>=4.0.39
+mdbtools>=0.9.0  # For Linux systems
+>>>>>>> Stashed changes
