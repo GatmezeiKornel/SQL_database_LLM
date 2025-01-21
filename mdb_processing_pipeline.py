@@ -2,7 +2,8 @@ import os
 import pandas as pd
 import pyodbc
 import sqlalchemy
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, text, MetaData, Table, Column, Integer, String, DateTime, ForeignKey, Index
+from sqlalchemy.schema import CreateTable
 from dotenv import load_dotenv
 from datetime import datetime
 import logging
@@ -21,10 +22,11 @@ class MDBProcessor:
         self.db_host = os.getenv('db_host')
         self.db_user = os.getenv('db_user')
         self.db_password = os.getenv('db_password')
-        self.db_name = os.getenv('db_name', 'postgres')  # Default to 'postgres' if not specified
+        self.db_name = os.getenv('db_name', 'postgres')
         
         # Create SQLAlchemy engine
         self.engine = self._create_db_engine()
+        self.metadata = MetaData()
 
     def _create_db_engine(self):
         """Create SQLAlchemy engine for PostgreSQL connection."""
@@ -33,6 +35,134 @@ class MDBProcessor:
             f"{self.db_host}/{self.db_name}"
         )
         return create_engine(connection_string)
+
+    def get_mdb_schema(self):
+        """Extract schema information from MDB file."""
+        logger.info("Extracting schema information from MDB...")
+        connection = self.connect_to_mdb()
+        cursor = connection.cursor()
+        
+        schema_info = {}
+        
+        for table_info in cursor.tables(tableType='TABLE'):
+            table_name = table_info.table_name.lower()
+            schema_info[table_name] = {
+                'columns': [],
+                'primary_keys': [],
+                'foreign_keys': [],
+                'indexes': []
+            }
+            
+            # Get column information
+            for column in cursor.columns(table=table_name):
+                col_name = column.column_name.lower()
+                col_type = column.type_name
+                nullable = column.nullable
+                schema_info[table_name]['columns'].append({
+                    'name': col_name,
+                    'type': col_type,
+                    'nullable': nullable
+                })
+            
+            # Get primary key information
+            try:
+                for pk in cursor.primaryKeys(table=table_name):
+                    schema_info[table_name]['primary_keys'].append(pk.column_name.lower())
+            except:
+                logger.warning(f"Could not get primary key info for table {table_name}")
+            
+            # Get foreign key information
+            try:
+                for fk in cursor.foreignKeys(table=table_name):
+                    schema_info[table_name]['foreign_keys'].append({
+                        'column': fk.fkcolumn_name.lower(),
+                        'ref_table': fk.pktable_name.lower(),
+                        'ref_column': fk.pkcolumn_name.lower()
+                    })
+            except:
+                logger.warning(f"Could not get foreign key info for table {table_name}")
+            
+            # Get index information
+            try:
+                for idx in cursor.statistics(table=table_name):
+                    if idx.index_name:
+                        schema_info[table_name]['indexes'].append({
+                            'name': idx.index_name.lower(),
+                            'column': idx.column_name.lower(),
+                            'unique': not bool(idx.non_unique)
+                        })
+            except:
+                logger.warning(f"Could not get index info for table {table_name}")
+        
+        connection.close()
+        return schema_info
+
+    def map_mdb_to_sql_type(self, mdb_type):
+        """Map MDB data types to PostgreSQL data types."""
+        type_mapping = {
+            'TEXT': String,
+            'MEMO': String,
+            'BYTE': Integer,
+            'INTEGER': Integer,
+            'LONG': Integer,
+            'SINGLE': sqlalchemy.Float,
+            'DOUBLE': sqlalchemy.Float,
+            'CURRENCY': sqlalchemy.Numeric,
+            'DATETIME': DateTime,
+            'BINARY': sqlalchemy.LargeBinary,
+            'BOOLEAN': sqlalchemy.Boolean,
+        }
+        return type_mapping.get(mdb_type.upper(), String)
+
+    def create_tables_with_metadata(self, schema_info):
+        """Create tables with proper schema in PostgreSQL."""
+        logger.info("Creating tables with metadata...")
+        
+        for table_name, info in schema_info.items():
+            # Create columns
+            columns = []
+            for col in info['columns']:
+                sql_type = self.map_mdb_to_sql_type(col['type'])
+                columns.append(Column(
+                    col['name'],
+                    sql_type,
+                    nullable=col['nullable']
+                ))
+            
+            # Create table
+            table = Table(table_name, self.metadata, *columns)
+            
+            # Add primary keys
+            if info['primary_keys']:
+                pk_constraint = sqlalchemy.PrimaryKeyConstraint(*info['primary_keys'])
+                table.append_constraint(pk_constraint)
+            
+            # Create indexes
+            for idx in info['indexes']:
+                Index(
+                    f"{table_name}_{idx['column']}_idx",
+                    table.c[idx['column']],
+                    unique=idx['unique']
+                )
+        
+        # Create all tables
+        self.metadata.create_all(self.engine)
+        
+        # Add foreign keys in a second pass
+        with self.engine.connect() as connection:
+            for table_name, info in schema_info.items():
+                for fk in info['foreign_keys']:
+                    query = text(f"""
+                        ALTER TABLE {table_name}
+                        ADD CONSTRAINT fk_{table_name}_{fk['column']}
+                        FOREIGN KEY ({fk['column']})
+                        REFERENCES {fk['ref_table']}({fk['ref_column']});
+                    """)
+                    try:
+                        connection.execute(query)
+                        connection.commit()
+                    except Exception as e:
+                        logger.warning(f"Could not create foreign key in {table_name}: {str(e)}")
 
     def connect_to_mdb(self):
         """Create a connection to the MDB file."""
@@ -119,6 +249,12 @@ class MDBProcessor:
     def process(self):
         """Run the complete pipeline."""
         try:
+            # Get schema information
+            schema_info = self.get_mdb_schema()
+            
+            # Create tables with proper schema
+            self.create_tables_with_metadata(schema_info)
+            
             # Read tables
             tables = self.read_tables()
             
@@ -137,6 +273,6 @@ class MDBProcessor:
 
 if __name__ == "__main__":
     # Example usage
-    mdb_file = "PUPHA_20240301_v3.mdb"
-    processor = MDBProcessor(mdb_file)
+    mdb_path = "forras/PUPHA_20240301_v3.mdb"
+    processor = MDBProcessor(mdb_path)
     processor.process() 
