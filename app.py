@@ -6,7 +6,9 @@ from dotenv import load_dotenv
 from utils.streamlit_functions import *
 from utils.prompts.prompt import *
 from utils.prompts.Schema_Prompt_v1 import *
-from utils.postgres_functions import *
+from database.config import get_db
+from database.operations import DatabaseOperations
+from contextlib import contextmanager
 
 load_dotenv()
 
@@ -23,6 +25,14 @@ client = AzureOpenAI(
     api_version = "2024-03-01-preview",
     azure_endpoint = str(os.environ['azure_api_endpoint'])
 )
+
+@contextmanager
+def get_db_operations():
+    db = next(get_db())
+    try:
+        yield DatabaseOperations(db)
+    finally:
+        db.close()
 
 def generate_response(messages, MODEL, TEMPERATURE, MAX_TOKENS):
     completion = client.chat.completions.create(
@@ -58,9 +68,8 @@ def talk_to_db():
 
             sql_response = generate_response(sql_gen_messages, MODEL, TEMPERATURE, MAX_TOKENS)
 
-            db_connection = connect_to_db(str(os.environ['db_host']), str('pupha'), str(os.environ['db_user']), str(os.environ['db_password']))
-            query_answer = read_db(sql_response, db_connection)
-            close_connection(db_connection) 
+            with get_db_operations() as db_ops:
+                query_answer = db_ops.execute_query(sql_response)
 
             messages = [
                 {"role": "system", "content" : text_system_message.format(system_prompt=DB_TO_TEXT_SYSTEM_PROMPT, 
